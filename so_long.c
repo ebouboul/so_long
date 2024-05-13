@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:16 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/13 17:35:19 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:27:46 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,24 @@ char **fill_lines(char *file,int fd)
 
     return tab;
 }
+void print_error(const char *str)
+{
+    write(2, str, sizeof(str));
+    write(2, "\n", 1);
+    exit(1);
+}
 void check_nbline(char **tab, int line_size, int size)
 {
     int j;
     j = 0;
-    
+    int i;
+    i = 0;
+    while(i < line_size)
+    {
+        if(tab[size - 1][i] != '1')
+        print_error("ERooor");
+        i++;
+    }  
     while (j < size - 1)
     {
 
@@ -69,18 +82,19 @@ void check_nbline(char **tab, int line_size, int size)
         j++;
     }
       if(tab[size - 1][line_size ] != '\0' && tab[size - 1][line_size - 1] == '1')
-        {
-            
+        {  
             printf("Error\n");
             exit(1);
-        }
+        }  
 }
 void check_walls(char *file,int fd, int size)
 {
     char **tab;
     int i;
+    int j;
     tab = fill_lines(file,fd);
     i = 0;
+    j = 0;
     while(tab[0][i] != '\n')
     {
         if(tab[0][i] != '1')
@@ -90,8 +104,18 @@ void check_walls(char *file,int fd, int size)
         }
         i++;
     }
+    while (j < size)
+    {
+        if(tab[j][0] != '1' || tab[j][i - 1] != '1')
+        {
+            printf("Error\n");
+            exit(1);
+        }
+        j++;
+    }
     check_nbline(tab, i, size);
 }
+
 
 
 int main(int ac, char **av)
