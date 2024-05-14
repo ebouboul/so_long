@@ -6,12 +6,12 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:44:19 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/14 13:45:50 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:40:58 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-int	*ft_strchr(char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
@@ -22,5 +22,5 @@ int	*ft_strchr(char *s, int c)
 			return (0);
 		i++;
 	}
-	return (1);
+	return ((char *)(s + i));
 }
