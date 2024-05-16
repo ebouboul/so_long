@@ -6,12 +6,42 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:16 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/14 14:08:58 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:35:26 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
+
+// typedef struct 	s_point {
+// 	int			x;				// x : Width  | x-axis
+// 	int			y;				// y : Height | y-axis
+// }				t_point;
+ 
+// void	fill(char **tab, t_point size, t_point cur, char to_fill)
+// {
+// 	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
+// 		|| tab[cur.y][cur.x] != to_fill)
+// 		return;
+
+// 	tab[cur.y][cur.x] = 'F';
+// 	fill(tab, size, (t_point){cur.x - 1, cur.y}, to_fill);
+// 	fill(tab, size, (t_point){cur.x + 1, cur.y}, to_fill);
+// 	fill(tab, size, (t_point){cur.x, cur.y - 1}, to_fill);
+// 	fill(tab, size, (t_point){cur.x, cur.y + 1}, to_fill);
+// }
+
+// void	flood_fill(char **tab, t_point size, t_point begin)
+// {
+// 	fill(tab, size, begin, tab[begin.y][begin.x]);
+// }
+
+void print_error(const char *str)
+{
+    write(2, str, ft_strlen(str));
+    write(2, "\n", 1);
+    exit(1);
+}
 
 int tab_size(char *file)
 {
@@ -22,12 +52,14 @@ int tab_size(char *file)
     fd = open(file, O_RDWR);
     line = get_next_line(fd);
     size = 0;
-     
+    if(!line)
+    print_error("The map is empty");
     while (line)
     {
         size++;
         line = get_next_line(fd);
     }
+    
     free(line);
     close(fd);
     return(size);
@@ -50,15 +82,22 @@ char **fill_lines(char *file,int fd)
         i++;
         map_line = get_next_line(fd);
     }
-
+    // t_point size;
+    // t_point begin;
+    // size.x = 6;
+    // size.y = 35;
+    // begin.x = 5;
+    // begin.y = 1;
+    // flood_fill(tab, size, begin);
+    // int k = 0;
+    // while (tab[k])
+    // {
+    //     printf("%s", tab[k++]);
+    // }
+    
     return tab;
 }
-void print_error(const char *str)
-{
-    write(2, str, ft_strlen(str));
-    write(2, "\n", 1);
-    exit(1);
-}
+
 char *check_nbline(char **tab, int line_size, int size)
 {
     int j;
