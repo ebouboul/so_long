@@ -6,7 +6,7 @@
 #    By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 13:08:38 by ebouboul          #+#    #+#              #
-#    Updated: 2024/05/16 12:36:23 by ebouboul         ###   ########.fr        #
+#    Updated: 2024/05/17 18:49:18 by ebouboul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ RM = rm -rf
 
 SRC = so_long.c \
       get_next_line.c \
-      get_next_line_utils.c
-
+      get_next_line_utils.c \
+	  parsing.c\
+	  flood_fill.c\
+	  
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
