@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:16 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/17 18:52:11 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/17 22:33:28 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ int is_ber(char *file)
     return(0);
 }
 
-void print_error(const char *str)
+void print_error(const char *str, char **tab, char *tab1)
 {
+    if(!tab && tab1)
+    free(tab1);
+    if(!tab1 && tab)
+    free_tab2(tab);
     write(2, str, ft_strlen(str));
     write(2, "\n", 1);
     exit(1);
@@ -64,7 +68,7 @@ int main(int ac, char **av)
     else
     {
         if(is_ber(av[1]) == 0)
-        print_error("Error: Wrong file format\n");
+        print_error("Error: Wrong file format\n", NULL, NULL);
         int fd;
         int i;
         i = tab_size(av[1]);

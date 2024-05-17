@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:17:32 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/17 18:59:17 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/17 22:46:01 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	fill(char **tab,int x , int y , char to_fill)
     
 }
 
-void	flood_fill(char **tab, t_point begin)
+void	flood_fill(char **tab, t_point *begin)
 {
-	fill(tab, begin.x , begin.y , 'P');
+	fill(tab, begin->x , begin->y , 'P');
+    // free(begin);
 }
 
 void player_position(char **tab, t_point **playre)
@@ -62,10 +63,7 @@ void big_check(char *file, int fd, int size)
         while(tab[j][i])
         {
             if(tab[j][i] != '1' && tab[j][i] != 'F' && tab[j][i] != '\n')
-            {
-                free_tab2(tab);
-                print_error("Invalid map");
-            }
+                print_error("Invalid map", tab, NULL);
             i++;
         }
         j++;
