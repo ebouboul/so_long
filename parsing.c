@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:19:52 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/17 22:45:45 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/21 23:23:50 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ int tab_size(char *file)
 }
 
 
-char **fill_lines(char *file,int fd)
+char **fill_lines(char *file)
 {
     char **tab;
     char *map_line;
     int i;
+    int fd;
     
     i = 0;
     tab = malloc(sizeof(char *) * (tab_size(file) + 1));
@@ -114,14 +115,14 @@ void check_c0pe(char *map)
         print_error("Map must contain exactly one starting position", NULL, map);
     free(map);
 }
-char **check_walls(char *file,int fd, int size)
+char **check_walls(char *file, int size)
 {
     char **tab;
     int i;
     int j;
     t_point *playre;
     playre = malloc(sizeof(t_point));
-    tab = fill_lines(file,fd);
+    tab = fill_lines(file);
     i = 0;
     j = 0;
     while(tab[0][i] != '\n')

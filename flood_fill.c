@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:17:32 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/17 22:46:01 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/21 23:24:16 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void player_position(char **tab, t_point **playre)
         (*playre)->y++;
     }
 }
-void big_check(char *file, int fd, int size)
+int big_check(char *file, int size)
 {
     char **tab;
-    tab = check_walls(file,fd, size);
+    tab = check_walls(file, size);
     int i;
     i = 0;
     int j;
@@ -69,4 +69,5 @@ void big_check(char *file, int fd, int size)
         j++;
     }
     free_tab2(tab);
+    return(i);
 }

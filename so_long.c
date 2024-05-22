@@ -6,11 +6,12 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:16 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/17 22:33:28 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:55:09 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <mlx.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -60,7 +61,77 @@ void print_error(const char *str, char **tab, char *tab1)
     write(2, "\n", 1);
     exit(1);
 }
+void put_img(void *mlx, void *mlx_win, char *imgpath, int w, int h)
+{
 
+    int img_width;
+    int img_height;
+    void *img = mlx_xpm_file_to_image(mlx, imgpath, &img_width, &img_height);
+
+    mlx_put_image_to_window(mlx, mlx_win, img, img_width * w , img_height * h);
+}
+/// 
+
+
+int handle_key(int keycode, void *param)
+{
+    (void)param; // To suppress unused parameter warning
+    if (keycode == ESC_KEY)
+    {
+        printf("ESC key pressed\n");
+        exit(0);
+    }
+    else if (keycode == W_KEY)
+        printf("W key pressed\n");
+    else if (keycode == A_KEY)
+        printf("A key pressed\n");
+    else if (keycode == S_KEY)
+        printf("S key pressed\n");
+    else if (keycode == D_KEY)
+        printf("D key pressed\n");
+    return 0;
+}
+
+/// 
+
+void get_game(char *file, int height, int width)
+{
+    void *mlx = mlx_init();
+    char **tab;
+    tab = fill_lines(file);
+ void *mlx_win = mlx_new_window(mlx, width * 50, height *50, "Hello world!");
+    int j = 0;
+    while (j < height)
+    {
+        int i = 0;
+        while (i < width)
+        {
+            put_img(mlx, mlx_win, "earth.xpm", i, j);
+            i++;
+        }
+        j++;
+    }
+    j = 0;
+    while (j < height)
+    {
+        int i = 0;
+        while (i < width)
+        {
+            if (tab[j][i] == '1')
+            put_img(mlx, mlx_win, "wall .xpm", i, j);
+            if(tab[j][i] == 'E')
+            put_img(mlx, mlx_win, "door.xpm", i, j);
+            if(tab[j][i] == 'C')
+            put_img(mlx, mlx_win, "coins.xpm", i, j);
+            if(tab[j][i] == 'P')
+            put_img(mlx, mlx_win, "player.xpm", i, j);
+            i++;
+        }
+        j++;
+    }
+    mlx_key_hook(mlx_win, handle_key, NULL);
+    mlx_loop(mlx);
+}
 int main(int ac, char **av)
 {
     if(ac != 2)
@@ -69,14 +140,15 @@ int main(int ac, char **av)
     {
         if(is_ber(av[1]) == 0)
         print_error("Error: Wrong file format\n", NULL, NULL);
-        int fd;
         int i;
+        int j;
         i = tab_size(av[1]);
+        j = big_check(av[1], i);
+        get_game(av[1], i, j);
         
-        fd = open(av[1], O_RDWR);
-        
-        big_check(av[1],fd, i);
     }
 }
+
+
 
 
