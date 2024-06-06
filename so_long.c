@@ -91,31 +91,20 @@ int handle_key(int keycode, void *param)
         printf("D key pressed\n");
     return 0;
 }
-
-/// 
-
-void get_game(char *file, int height, int width)
+void fill_win(void *mlx, void *mlx_win, char **tab)
 {
-    void *mlx = mlx_init();
-    char **tab;
-    tab = fill_lines(file);
- void *mlx_win = mlx_new_window(mlx, width * 50, height *50, "Hello world!");
-    int j = 0;
-    while (j < height)
+    int j = -1;
+    while (++j < height)
     {
-        int i = 0;
-        while (i < width)
-        {
+        int i = -1;
+        while (++i < width)
             put_img(mlx, mlx_win, "earth.xpm", i, j);
-            i++;
-        }
-        j++;
     }
-    j = 0;
-    while (j < height)
+    j = -1;
+    while (++j < height)
     {
-        int i = 0;
-        while (i < width)
+        int i = -1;
+        while (++i < width)
         {
             if (tab[j][i] == '1')
             put_img(mlx, mlx_win, "wall .xpm", i, j);
@@ -125,13 +114,37 @@ void get_game(char *file, int height, int width)
             put_img(mlx, mlx_win, "coins.xpm", i, j);
             if(tab[j][i] == 'P')
             put_img(mlx, mlx_win, "player.xpm", i, j);
-            i++;
         }
-        j++;
     }
+}
+// char **ft_strchr_2d(char **tab, char c)
+// {
+//     int i = 0;
+//     while (tab[i])
+//     {
+//         ft_strchr(tab[i], "P")
+//     }
+    
+// }
+// /// 
+// void change_palayer(char **tab, char key)
+// {
+//     if(key == W)
+//     {
+//     }
+// }
+
+void get_game(char *file, int height, int width)
+{
+    void *mlx = mlx_init();
+    char **tab;
+    tab = fill_lines(file);
+    void *mlx_win = mlx_new_window(mlx, width * 50, height *50, "Hello world!");
+    fili_win(mlx, mlx_win, tab);
     mlx_key_hook(mlx_win, handle_key, NULL);
     mlx_loop(mlx);
 }
+
 int main(int ac, char **av)
 {
     if(ac != 2)
