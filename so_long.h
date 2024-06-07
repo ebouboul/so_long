@@ -25,6 +25,13 @@ typedef struct 	s_point {
 	int			y;				// y : Height | y-axis
 }				t_point;
  
+ typedef struct	s_vars {
+	void	*mlx;
+	void	*mlx_win;
+    char **tab;
+    int height;
+    int width;
+}				t_vars;
 
 // parcing functions
 char ** check_walls(char *file, int size);

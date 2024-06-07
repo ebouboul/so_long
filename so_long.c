@@ -71,27 +71,64 @@ void put_img(void *mlx, void *mlx_win, char *imgpath, int w, int h)
     mlx_put_image_to_window(mlx, mlx_win, img, img_width * w , img_height * h);
 }
 /// 
-
-
-int handle_key(int keycode, void *param)
+void change_palayer(char **tab, char key)
 {
-    (void)param; // To suppress unused parameter warning
-    if (keycode == ESC_KEY)
+    int i = 0;
+    int j = 0;
+    while (tab[i])
     {
-        printf("ESC key pressed\n");
-        exit(0);
+        j = 0;
+        while (tab[i][j])
+        {
+            if(tab[i][j] == 'P')
+            {   
+                if(key == 'W')
+                {
+                    if(tab[i - 1][j] == '0' || tab[i - 1][j] == 'C')
+                    {
+                        tab[i - 1][j] = 'P';
+                        tab[i][j] = '0';
+                    }
+                    // return;
+                }
+                else if(key == 'S')
+                {
+                    if(tab[i + 1][j] == '0' || tab[i + 1][j] == 'C')
+                    {
+                        tab[i + 1][j] = 'P';
+                        tab[i][j] = '0';
+                    }
+                    return;
+                }
+                else if(key == 'D')
+                {
+                    if(tab[i][j + 1] == '0' || tab[i][j + 1] == 'C')
+                    {
+                        tab[i][j + 1] = 'P';
+                        tab[i][j] = '0';
+                    }
+                    return;
+                }
+                else if(key == 'A')
+                {
+                    if(tab[i][j - 1] == '0' || tab[i][j - 1] == 'C' )
+                    {
+                        tab[i][j - 1] = 'P';
+                        tab[i][j] = '0';
+                    }
+                    return;
+                }
+                else if(tab[i][j] == 'E')
+                {
+                    printf("You win\n");
+                }
+            }
+            j++;
+        }
+        i++;
     }
-    else if (keycode == W_KEY)
-        printf("W key pressed\n");
-    else if (keycode == A_KEY)
-        printf("A key pressed\n");
-    else if (keycode == S_KEY)
-        printf("S key pressed\n");
-    else if (keycode == D_KEY)
-        printf("D key pressed\n");
-    return 0;
 }
-void fill_win(void *mlx, void *mlx_win, char **tab)
+void fill_win(void *mlx, void *mlx_win, char **tab, int height, int width)
 {
     int j = -1;
     while (++j < height)
@@ -116,7 +153,43 @@ void fill_win(void *mlx, void *mlx_win, char **tab)
             put_img(mlx, mlx_win, "player.xpm", i, j);
         }
     }
+
+    // mlx_destroy_image(mlx, put_img);
 }
+
+int handle_key(int keycode, t_vars *vars)
+{
+    if (keycode == ESC_KEY)
+    {
+        printf("ESC key pressed\n");
+        exit(0);
+    }
+    else if (keycode == W_KEY)
+    {
+        change_palayer(vars->tab, 'W');
+        printf("W key pressed\n");
+    }
+    else if (keycode == A_KEY)
+    {
+        change_palayer(vars->tab, 'A');
+        printf("A key pressed\n");
+    }
+    else if (keycode == S_KEY)
+    {
+        change_palayer(vars->tab, 'S');
+        printf("S key pressed\n");
+    }
+    else if (keycode == D_KEY)
+    {
+        change_palayer(vars->tab, 'D');
+        printf("D key pressed\n");
+    }
+    fill_win(vars->mlx, vars->mlx_win, vars->tab, vars->height, vars->width);
+    // mlx_loop(vars->mlx);
+    return 0;
+}
+
+
 // char **ft_strchr_2d(char **tab, char c)
 // {
 //     int i = 0;
@@ -133,16 +206,24 @@ void fill_win(void *mlx, void *mlx_win, char **tab)
 //     {
 //     }
 // }
-
 void get_game(char *file, int height, int width)
 {
-    void *mlx = mlx_init();
-    char **tab;
-    tab = fill_lines(file);
-    void *mlx_win = mlx_new_window(mlx, width * 50, height *50, "Hello world!");
-    fili_win(mlx, mlx_win, tab);
-    mlx_key_hook(mlx_win, handle_key, NULL);
-    mlx_loop(mlx);
+    t_vars vars;
+    vars.mlx = mlx_init();
+    vars.tab = fill_lines(file);
+    vars.height = height;
+    vars.width = width;
+    vars.mlx_win = mlx_new_window(vars.mlx, vars.width * 50, vars.height *50, "SO_LONG");
+    fill_win(vars.mlx, vars.mlx_win, vars.tab, vars.height, vars.width);
+    mlx_key_hook(vars.mlx_win, handle_key, &vars);
+
+    mlx_loop(vars.mlx);
+
+    
+
+    // mlx_loop(mlx);
+    // mlx_destroy_window(mlx, mlx_win);
+    
 }
 
 int main(int ac, char **av)
