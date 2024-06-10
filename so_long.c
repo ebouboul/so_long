@@ -71,56 +71,87 @@ void put_img(void *mlx, void *mlx_win, char *imgpath, int w, int h)
     mlx_put_image_to_window(mlx, mlx_win, img, img_width * w , img_height * h);
 }
 /// 
-void change_palayer(char **tab, char key)
+int coin_count(char **tab)
+        {
+            int count = 0;
+            int i = 0;
+            int j = 0;
+            while (tab[i])
+            {
+                j = 0;
+                while (tab[i][j])
+                {
+                    if (tab[i][j] == 'C')
+                        count++;
+                    j++;
+                }
+                i++;
+            }
+            return count;
+        }
+    void destroy(void *mlx, void *mlx_win, void *put_img, char **tab)
+{
+    free_tab2(tab);
+    mlx_destroy_image(mlx, put_img);
+    mlx_destroy_window(mlx, mlx_win);
+    mlx_destroy_display(mlx);
+    free(mlx);
+    exit(0);
+}
+void change_palayer(char key, t_vars *vars)
 {
     int i = 0;
     int j = 0;
-    while (tab[i])
+    while (vars->tab[i])
     {
         j = 0;
-        while (tab[i][j])
+        while (vars->tab[i][j])
         {
-            if(tab[i][j] == 'P')
+            if(vars->tab[i][j] == 'P')
             {   
                 if(key == 'W')
                 {
-                    if(tab[i - 1][j] == '0' || tab[i - 1][j] == 'C')
+                    if(vars->tab[i - 1][j] == '0' || vars->tab[i - 1][j] == 'C')
                     {
-                        tab[i - 1][j] = 'P';
-                        tab[i][j] = '0';
+                        vars->tab[i - 1][j] = 'P';
+                        vars->tab[i][j] = '0';
                     }
                     // return;
                 }
                 else if(key == 'S')
                 {
-                    if(tab[i + 1][j] == '0' || tab[i + 1][j] == 'C')
+                    if(vars->tab[i + 1][j] == '0' || vars->tab[i + 1][j] == 'C')
                     {
-                        tab[i + 1][j] = 'P';
-                        tab[i][j] = '0';
+                        vars->tab[i + 1][j] = 'P';
+                        vars->tab[i][j] = '0';
                     }
                     return;
                 }
                 else if(key == 'D')
                 {
-                    if(tab[i][j + 1] == '0' || tab[i][j + 1] == 'C')
+                    if(vars->tab[i][j + 1] == '0' || vars->tab[i][j + 1] == 'C' || vars->tab[i][j + 1] == 'E')
                     {
-                        tab[i][j + 1] = 'P';
-                        tab[i][j] = '0';
+                if(vars->tab[i][j + 1] == 'E')
+                {
+                    printf("You win\n");
+                    destroy(vars->mlx, vars->mlx_win, NULL, vars->tab);
+                }
+                else
+                    {        vars->tab[i][j + 1] = 'P';
+                        vars->tab[i][j] = '0';
+                        }
                     }
                     return;
                 }
                 else if(key == 'A')
                 {
-                    if(tab[i][j - 1] == '0' || tab[i][j - 1] == 'C' )
+                    if(vars->tab[i][j - 1] == '0' || vars->tab[i][j - 1] == 'C' )
                     {
-                        tab[i][j - 1] = 'P';
-                        tab[i][j] = '0';
+                        vars->tab[i][j - 1] = 'P';
+                        vars->tab[i][j] = '0';
+
                     }
                     return;
-                }
-                else if(tab[i][j] == 'E')
-                {
-                    printf("You win\n");
                 }
             }
             j++;
@@ -146,16 +177,25 @@ void fill_win(void *mlx, void *mlx_win, char **tab, int height, int width)
             if (tab[j][i] == '1')
             put_img(mlx, mlx_win, "wall .xpm", i, j);
             if(tab[j][i] == 'E')
+            {
+            if(coin_count(tab) == 0)
+            {
+               put_img(mlx, mlx_win, "exit.xpm", i, j); 
+            }
+            else
             put_img(mlx, mlx_win, "door.xpm", i, j);
+            }
+            // put_img(mlx, mlx_win, "door.xpm", i, j);
             if(tab[j][i] == 'C')
             put_img(mlx, mlx_win, "coins.xpm", i, j);
             if(tab[j][i] == 'P')
             put_img(mlx, mlx_win, "player.xpm", i, j);
         }
     }
-
+    // mlx_destroy_image(mlx, put_img);
     // mlx_destroy_image(mlx, put_img);
 }
+
 
 int handle_key(int keycode, t_vars *vars)
 {
@@ -166,22 +206,22 @@ int handle_key(int keycode, t_vars *vars)
     }
     else if (keycode == W_KEY)
     {
-        change_palayer(vars->tab, 'W');
+        change_palayer('W',  vars);
         printf("W key pressed\n");
     }
     else if (keycode == A_KEY)
     {
-        change_palayer(vars->tab, 'A');
+        change_palayer('A', vars);
         printf("A key pressed\n");
     }
     else if (keycode == S_KEY)
     {
-        change_palayer(vars->tab, 'S');
+        change_palayer('S', vars);
         printf("S key pressed\n");
     }
     else if (keycode == D_KEY)
     {
-        change_palayer(vars->tab, 'D');
+        change_palayer('D', vars);
         printf("D key pressed\n");
     }
     fill_win(vars->mlx, vars->mlx_win, vars->tab, vars->height, vars->width);
@@ -218,6 +258,7 @@ void get_game(char *file, int height, int width)
     mlx_key_hook(vars.mlx_win, handle_key, &vars);
 
     mlx_loop(vars.mlx);
+    mlx_destroy_window(vars.mlx, vars.mlx_win);
 
     
 
