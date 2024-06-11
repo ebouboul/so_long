@@ -6,13 +6,13 @@
 #    By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 13:08:38 by ebouboul          #+#    #+#              #
-#    Updated: 2024/06/11 20:59:26 by ebouboul         ###   ########.fr        #
+#    Updated: 2024/06/11 22:36:25 by ebouboul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 # LIBS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 RM = rm -rf
 MLXFLAGS =  -Lminilibx-linux -lmlx -lX11 -lXext -lm

@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:27:46 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/11 20:40:08 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/11 22:35:26 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,11 @@ void	move_player(t_vars *vars, varib *var)
 		{
 			vars->tab[var->ni][var->nj] = 'P';
 			vars->tab[var->i][var->j] = '0';
+			vars->i++;
+			printf("%d moves\n", vars->i);
 		}
 	}
+	
 }
 
 void	change_palayer(char key, t_vars *vars)

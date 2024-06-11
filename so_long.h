@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:42 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/11 20:47:27 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/11 22:28:11 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct 	s_point {
  typedef struct	s_vars {
 	void	*mlx;
 	void	*mlx_win;
+	int i;
     char **tab;
     int height;
     int width;
@@ -60,7 +61,7 @@ void player_position(char **tab, t_point **playre);
 
 // window functions
 void	put_img(t_vars vars, char *imgpath, int w, int h);
-void	fill_win(t_vars *vars);
+void	fill_win(t_vars *vars , int flag);
 void	fill_background(t_vars *vars);
 void	fill_elements(t_vars *vars);
 void	move_player(t_vars *vars, varib *var);
