@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:32 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/13 13:08:33 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:52:22 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
+int ft_strcmp(char *s1, char *s2);
 
 #endif

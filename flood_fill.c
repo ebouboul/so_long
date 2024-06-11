@@ -46,6 +46,7 @@ void	player_position(char **tab, t_point **playre)
 		(*playre)->y++;
 	}
 }
+
 int	big_check(char *file, int size)
 {
 	char	**tab;

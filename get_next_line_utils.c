@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:25 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/14 13:45:22 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:43:52 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 char	*ft_strdup(const char *s1)
 {
-	char *tab;
-	int i;
-	size_t len;
+	char	*tab;
+	int		i;
+	size_t	len;
 
 	if (s1 == 0)
 		return (NULL);

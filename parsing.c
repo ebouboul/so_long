@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:19:52 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/21 23:23:50 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:42:54 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ char	**fill_lines(char *file)
 
 char	*check_nbline(char **tab, int line_size, int size)
 {
-	int		j;
-	int		i;
 	char	*full_line;
-	int		k;
 
+	int (j), (i), (k);
 	j = 0;
 	i = 0;
 	while (i < line_size)
@@ -86,18 +84,15 @@ char	*check_nbline(char **tab, int line_size, int size)
 		full_line = ft_strjoin(full_line, tab[k++]);
 	return (full_line);
 }
+
 void	check_c0pe(char *map)
 {
-	int	exits;
-	int	collectibles;
-	int	player;
-	int	i;
-
+	int (exits), (collectibles), (player), (i);
 	exits = 0;
 	collectibles = 0;
 	player = 0;
-	i = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
 		if (map[i] == 'E')
 			exits++;
@@ -107,7 +102,6 @@ void	check_c0pe(char *map)
 			player++;
 		else if (map[i] != '0' && map[i] != '1' && map[i] != '\n')
 			print_error("Invalid character found", NULL, map);
-		i++;
 	}
 	if (exits != 1)
 		print_error(" Map must contain exactly one exit", NULL, map);
@@ -115,32 +109,32 @@ void	check_c0pe(char *map)
 		print_error("Map must contain at least one collectible", NULL, map);
 	if (player != 1)
 		print_error("Map must contain exactly one starting position", NULL,
-				map);
+			map);
 	free(map);
 }
+
 char	**check_walls(char *file, int size)
 {
 	char	**tab;
-	int		i;
-	int		j;
 	t_point	*playre;
 
+	int (i), (j);
 	playre = malloc(sizeof(t_point));
 	tab = fill_lines(file);
 	i = 0;
-	j = 0;
+	j = -1;
 	while (tab[0][i] != '\n')
 	{
 		if (tab[0][i] != '1')
 			print_error("Map must contain only 1 at the first line", tab, NULL);
 		i++;
 	}
-	while (j < size)
+	while (++j < size)
 	{
 		if (tab[j][0] != '1' || tab[j][i - 1] != '1')
-			print_error("Map must contain only 1 at the first an last of each line",
-					tab, NULL);
-		j++;
+			print_error("Map must contain only 1 at the first anLastOfEachLine",
+				tab,
+				NULL);
 	}
 	check_c0pe(check_nbline(tab, i, size));
 	player_position(tab, &playre);
