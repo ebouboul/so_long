@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 #include "get_next_line.h"
+#include "./minilibx-linux/mlx_int.h"
 #define ESC_KEY 65307
 #define W_KEY 119
 #define A_KEY 97
@@ -24,6 +25,7 @@ typedef struct 	s_point {
 	int			x;				// x : Width  | x-axis
 	int			y;				// y : Height | y-axis
 }				t_point;
+
  
  typedef struct	s_vars {
 	void	*mlx;
@@ -31,6 +33,7 @@ typedef struct 	s_point {
     char **tab;
     int height;
     int width;
+	t_img	*img;
 }				t_vars;
 
 // parcing functions

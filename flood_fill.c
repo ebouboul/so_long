@@ -12,62 +12,60 @@
 
 #include "so_long.h"
 
-void	fill(char **tab,int x , int y , char to_fill)
+void	fill(char **tab, int x, int y, char to_fill)
 {
-	if (tab[y][x] == '1' || (tab[y][x] != to_fill && tab[y][x] != '0' && tab[y][x] != 'E' && tab[y][x] != 'C') ||
-	((tab[y][x] == 'E') &&(tab[y][x-1] == 'C' || tab[y][x+1] == 'C')))
-		return;
-
+	if (tab[y][x] == '1' || (tab[y][x] != to_fill && tab[y][x] != '0'
+			&& tab[y][x] != 'E' && tab[y][x] != 'C') ||
+		((tab[y][x] == 'E') && (tab[y][x - 1] == 'C' || tab[y][x + 1] == 'C')))
+		return ;
 	tab[y][x] = 'F';
-
-	fill(tab, x + 1 , y  , to_fill);
-    fill(tab,x - 1, y, to_fill);
-	fill(tab,x , y - 1 , to_fill);
-	fill(tab,x , y + 1, to_fill);
-
-    
+	fill(tab, x + 1, y, to_fill);
+	fill(tab, x - 1, y, to_fill);
+	fill(tab, x, y - 1, to_fill);
+	fill(tab, x, y + 1, to_fill);
 }
 
 void	flood_fill(char **tab, t_point *begin)
 {
-	fill(tab, begin->x , begin->y , 'P');
-    // free(begin);
+	fill(tab, begin->x, begin->y, 'P');
+	free(begin);
 }
 
-void player_position(char **tab, t_point **playre)
+void	player_position(char **tab, t_point **playre)
 {
-    (*playre)->y = 0;
-    while(tab[(*playre)->y])
-    {
-        (*playre)->x = 0;
-        while(tab[(*playre)->y][(*playre)->x])
-        {
-            if(tab[(*playre)->y][(*playre)->x] == 'P')
-               return;
-            (*playre)->x++;
-        }
-        (*playre)->y++;
-    }
+	(*playre)->y = 0;
+	while (tab[(*playre)->y])
+	{
+		(*playre)->x = 0;
+		while (tab[(*playre)->y][(*playre)->x])
+		{
+			if (tab[(*playre)->y][(*playre)->x] == 'P')
+				return ;
+			(*playre)->x++;
+		}
+		(*playre)->y++;
+	}
 }
-int big_check(char *file, int size)
+int	big_check(char *file, int size)
 {
-    char **tab;
-    tab = check_walls(file, size);
-    int i;
-    i = 0;
-    int j;
-    j = 0;
-    while(tab[j])
-    {
-        i = 0;
-        while(tab[j][i])
-        {
-            if(tab[j][i] != '1' && tab[j][i] != 'F' && tab[j][i] != '\n')
-                print_error("Invalid map", tab, NULL);
-            i++;
-        }
-        j++;
-    }
-    free_tab2(tab);
-    return(i);
+	char	**tab;
+	int		i;
+	int		j;
+
+	tab = check_walls(file, size);
+	i = 0;
+	j = 0;
+	while (tab[j])
+	{
+		i = 0;
+		while (tab[j][i])
+		{
+			if (tab[j][i] != '1' && tab[j][i] != 'F' && tab[j][i] != '\n')
+				print_error("Invalid map", tab, NULL);
+			i++;
+		}
+		j++;
+	}
+	free_tab2(tab);
+	return (i);
 }

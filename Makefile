@@ -23,7 +23,6 @@ SRC = so_long.c \
       get_next_line_utils.c \
 	  parsing.c\
 	  flood_fill.c\
-	  mlx_test.c\
 	  
 OBJ = $(SRC:.c=.o)
 
