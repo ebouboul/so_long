@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 20:27:46 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/11 22:35:26 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:48:30 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_img(t_vars vars, char *imgpath, int w, int h)
 {
 	int		img_width;
 	int		img_height;
-	t_img	*img;
+	void	*img;
 
 	img = mlx_xpm_file_to_image(vars.mlx, imgpath, &img_width, &img_height);
 	mlx_put_image_to_window(vars.mlx, vars.mlx_win, img, img_width * w,
@@ -47,14 +47,14 @@ int	coin_count(char **tab)
 	return (count);
 }
 
-void	move_player(t_vars *vars, varib *var)
+void	move_player(t_vars *vars, t_varib *var)
 {
 	if (vars->tab[var->ni][var->nj] == '0' || vars->tab[var->ni][var->nj] == 'C'
 		|| vars->tab[var->ni][var->nj] == 'A')
 	{
 		if (vars->tab[var->ni][var->nj] == 'A')
 		{
-			printf("You win\n");
+			write(1, "You win\n", 8);
 			destroy(vars);
 		}
 		else
@@ -62,15 +62,15 @@ void	move_player(t_vars *vars, varib *var)
 			vars->tab[var->ni][var->nj] = 'P';
 			vars->tab[var->i][var->j] = '0';
 			vars->i++;
-			printf("%d moves\n", vars->i);
+			put_nbr(vars->i);
+			write(1, " moves\n", 7);
 		}
 	}
-	
 }
 
 void	change_palayer(char key, t_vars *vars)
 {
-	varib	var;
+	t_varib	var;
 
 	var.i = -1;
 	while (vars->tab[++var.i])

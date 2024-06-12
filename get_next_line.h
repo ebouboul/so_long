@@ -29,6 +29,6 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
-int ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 
 #endif

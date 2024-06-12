@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:19:52 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/11 20:42:54 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:46:09 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ char	**check_walls(char *file, int size)
 	{
 		if (tab[j][0] != '1' || tab[j][i - 1] != '1')
 			print_error("Map must contain only 1 at the first anLastOfEachLine",
-				tab,
-				NULL);
+				tab, NULL);
 	}
 	check_c0pe(check_nbline(tab, i, size));
 	player_position(tab, &playre);

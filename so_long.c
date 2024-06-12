@@ -6,12 +6,11 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:16 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/11 23:21:45 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:44:28 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <string.h>
 
 void	free_tab2(char **tab)
 {
@@ -33,7 +32,7 @@ int	is_ber(char *file)
 {
 	char	*extns;
 
-	extns = strrchr(file, '.');
+	extns = ft_strrchr(file, '.');
 	if (extns == NULL)
 		return (0);
 	if (ft_strcmp(extns, ".ber") == 0)
@@ -42,20 +41,10 @@ int	is_ber(char *file)
 		return (0);
 }
 
-void	print_error(const char *str, char **tab, char *tab1)
-{
-	if (!tab && tab1)
-		free(tab1);
-	if (!tab1 && tab)
-		free_tab2(tab);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	exit(1);
-}
-int dest(t_vars *vars)
+int	dest(t_vars *vars)
 {
 	destroy(vars);
-	return(0);
+	return (0);
 }
 
 void	get_game(char *file, int height, int width)
@@ -69,7 +58,7 @@ void	get_game(char *file, int height, int width)
 	vars.width = width;
 	vars.mlx_win = mlx_new_window(vars.mlx, vars.width * 50, vars.height * 50,
 			"SO_LONG");
-	fill_win(&vars , 1);
+	fill_win(&vars, 1);
 	mlx_key_hook(vars.mlx_win, handle_key, &vars);
 	mlx_hook(vars.mlx_win, 17, 0, dest, &vars);
 	mlx_loop(vars.mlx);
@@ -79,7 +68,7 @@ int	main(int ac, char **av)
 {
 	int	i;
 	int	j;
-	
+
 	if (ac != 2)
 		return (0);
 	else

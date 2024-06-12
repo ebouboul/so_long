@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:17:32 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/05/21 23:24:16 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:33:17 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	fill(char **tab, int x, int y, char to_fill)
 {
 	if (tab[y][x] == '1' || (tab[y][x] != to_fill && tab[y][x] != '0'
-			&& tab[y][x] != 'E' && tab[y][x] != 'C') ||
-		((tab[y][x] == 'E') && (tab[y][x - 1] == 'C' || tab[y][x + 1] == 'C')))
+			&& tab[y][x] != 'E' && tab[y][x] != 'C') || ((tab[y][x] == 'E')
+			&& (tab[y][x - 1] == 'C' || tab[y][x + 1] == 'C'
+				|| tab[y - 1][x] == 'C' || tab[y + 1][x] == 'C')))
 		return ;
 	tab[y][x] = 'F';
 	fill(tab, x + 1, y, to_fill);
@@ -69,4 +70,30 @@ int	big_check(char *file, int size)
 	}
 	free_tab2(tab);
 	return (i);
+}
+
+char	*ft_strrchr(const char *s, int c)
+{
+	int		i;
+	int		count;
+	char	*str;
+
+	str = (char *)s;
+	i = 0;
+	count = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == (unsigned char)c)
+			count = i;
+		i++;
+	}
+	if (str[i] == (unsigned char)c)
+		return (str = &str[i]);
+	else if (count == 0 && s[0] != (unsigned char)c)
+		return (0);
+	else
+	{
+		str = &str[count];
+		return (str);
+	}
 }
