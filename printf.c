@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:10:37 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/12 18:45:43 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 23:59:44 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	change_place(t_vars *vars)
 
 void	print_error(const char *str, char **tab, char *tab1)
 {
-	if (!tab && tab1)
+	if (tab1)
 		free(tab1);
-	if (!tab1 && tab)
+	if (tab)
 		free_tab2(tab);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);

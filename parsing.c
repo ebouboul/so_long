@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 15:19:52 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/12 18:46:09 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/13 00:05:59 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*check_nbline(char **tab, int line_size, int size)
 	return (full_line);
 }
 
-void	check_c0pe(char *map)
+void	check_c0pe(char *map, char **tab)
 {
 	int (exits), (collectibles), (player), (i);
 	exits = 0;
@@ -101,14 +101,14 @@ void	check_c0pe(char *map)
 		else if (map[i] == 'P')
 			player++;
 		else if (map[i] != '0' && map[i] != '1' && map[i] != '\n')
-			print_error("Invalid character found", NULL, map);
+			print_error("Invalid character found", tab, map);
 	}
 	if (exits != 1)
-		print_error(" Map must contain exactly one exit", NULL, map);
+		print_error(" Map must contain exactly one exit", tab, map);
 	if (collectibles < 1)
-		print_error("Map must contain at least one collectible", NULL, map);
+		print_error("Map must contain at least one collectible", tab, map);
 	if (player != 1)
-		print_error("Map must contain exactly one starting position", NULL,
+		print_error("Map must contain exactly one starting position", tab,
 			map);
 	free(map);
 }
@@ -119,7 +119,6 @@ char	**check_walls(char *file, int size)
 	t_point	*playre;
 
 	int (i), (j);
-	playre = malloc(sizeof(t_point));
 	tab = fill_lines(file);
 	i = 0;
 	j = -1;
@@ -135,7 +134,8 @@ char	**check_walls(char *file, int size)
 			print_error("Map must contain only 1 at the first anLastOfEachLine",
 				tab, NULL);
 	}
-	check_c0pe(check_nbline(tab, i, size));
+	check_c0pe(check_nbline(tab, i, size), tab);
+	playre = malloc(sizeof(t_point));
 	player_position(tab, &playre);
 	flood_fill(tab, playre);
 	return (tab);

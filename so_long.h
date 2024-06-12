@@ -6,7 +6,7 @@
 /*   By: ebouboul <ebouboul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:08:42 by ebouboul          #+#    #+#             */
-/*   Updated: 2024/06/12 18:53:27 by ebouboul         ###   ########.fr       */
+/*   Updated: 2024/06/12 23:58:43 by ebouboul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_variables
 
 // parcing functions
 char		**check_walls(char *file, int size);
-void		check_c0pe(char *map);
+void		check_c0pe(char *map, char **tab);
 char		*check_nbline(char **tab, int line_size, int size);
 char		**fill_lines(char *file);
 int			tab_size(char *file);
